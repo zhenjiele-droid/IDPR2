@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>小傑空間攝影 CRM</title>
+<title>UNZIV STUDIO CRM</title>
 <style>
 *{box-sizing:border-box}
 :root{--navy:#082c3d;--cream:#e6dfc2;--teal:#548c84;--ink:#123746;--bg:#f6f7f4;--line:#e2e7e3}
@@ -112,7 +112,7 @@ dialog::backdrop{background:#0008}
 <div><label>Email</label><input id="coEmail"></div><div><label>合作狀態</label><select id="coStatus"><option>合作中</option><option>潛在客戶</option><option>暫停合作</option></select></div>
 </div><div class="modal-actions"><button type="button" class="secondary" onclick="companyDlg.close()">取消</button> <button class="primary">儲存</button></div></form></div></dialog>
 <script>
-const K='unzivStudioCRM',D=()=>JSON.parse(localStorage.getItem(K)||'{"companies":[],"cases":[]}');let db=D(),edit=null,editCo=null;
+const K='xiaojieCRM',D=()=>JSON.parse(localStorage.getItem(K)||'{"companies":[],"cases":[]}');let db=D(),edit=null,editCo=null;
 const $=id=>document.getElementById(id), money=n=>new Intl.NumberFormat('zh-TW',{style:'currency',currency:'TWD',maximumFractionDigits:0}).format(n||0);
 function save(){localStorage.setItem(K,JSON.stringify(db));render()}
 function esc(s){return String(s||'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]))}
