@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="zh-Hant"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UNZIV STUDIO CRM</title>
+<style>
+*{box-sizing:border-box}
+:root{--navy:#082c3d;--cream:#e6dfc2;--teal:#548c84;--ink:#123746;--bg:#f6f7f4;--line:#e2e7e3}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif}
+header{background:var(--navy);color:white;padding:26px 22px 24px;position:relative;overflow:hidden}
+header:after{content:"";position:absolute;width:180px;height:180px;border:24px solid var(--cream);border-radius:50%;right:-95px;top:-95px;opacity:.9}
+.brand{display:flex;align-items:center;gap:13px;position:relative;z-index:1}
+.logo{width:55px;height:55px;flex:none}
+.brand-name{font-family:Georgia,"Times New Roman",serif;font-size:25px;letter-spacing:5px;line-height:1}
+.sub{color:#d9e2e5;font-size:13px;margin-top:9px}
+nav{display:flex;gap:10px;margin-top:22px;position:relative;z-index:1}
+nav button{border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:11px 20px;background:rgba(255,255,255,.10);color:white;font-size:15px}
+nav button.active{background:var(--cream);color:var(--navy);border-color:var(--cream)}
+main{max-width:900px;margin:auto;padding:18px 14px 30px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.card{background:white;border:1px solid var(--line);border-radius:22px;padding:18px;margin-bottom:12px;box-shadow:0 5px 18px rgba(8,44,61,.045)}
+.metric-card{min-height:145px;position:relative}
+.metric-top{display:flex;align-items:center;gap:10px}
+.metric-icon{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:20px;background:var(--navy);color:white}
+.metric-card:nth-child(2) .metric-icon,.metric-card:nth-child(4) .metric-icon{background:var(--teal)}
+.metric-card:nth-child(3) .metric-icon{background:var(--cream);color:var(--navy)}
+.label{font-size:16px;color:var(--ink)}
+.metric{font-size:34px;font-weight:700;margin-top:18px;color:var(--navy)}
+.arrow{position:absolute;right:20px;bottom:25px;font-size:25px;color:var(--teal)}
+h2{font-size:22px;margin:0;color:var(--navy)}
+.row{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.primary,.secondary,.danger{border-radius:18px;padding:11px 17px;font-size:14px}
+.primary{background:var(--teal);color:white;border:0}
+.secondary{background:white;color:var(--navy);border:1px solid #cbd8d5}
+.danger{background:white;color:#9b3b3b;border:1px solid #efcaca}
+input,select,textarea{width:100%;padding:11px;border:1px solid #d1dcd8;border-radius:12px;font:inherit;background:#fff;color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:2px solid #a8c8c3;border-color:var(--teal)}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.full{grid-column:1/-1}
+.meta{font-size:12px;color:#71838a;line-height:1.7}
+.pill{background:#e7f0ee;color:var(--teal);border-radius:99px;padding:4px 8px;font-size:11px}
+.actions{display:flex;gap:6px;margin-top:9px}
+.recent{padding:20px}
+.recent-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.recent-title{display:flex;align-items:center;gap:10px}
+.recent-title:before{content:"";width:7px;height:38px;border-radius:8px;background:var(--navy)}
+.recent-sub{font-size:12px;color:#7d9198;margin-top:5px}
+.empty-box{min-height:150px;border-radius:18px;background:#fbfcfa;border:1px solid #edf0ed;display:grid;place-items:center;text-align:center;color:#8a9ba0}
+.empty-icon{font-size:30px;margin-bottom:8px}
+.bottom-nav{display:none}
+dialog{border:0;border-radius:22px;width:min(700px,94vw);padding:0}
+dialog::backdrop{background:#0008}
+.modal{padding:20px}
+.modal-actions{text-align:right;margin-top:15px}
+.hidden{display:none}
+.empty{text-align:center;color:#6b7280;padding:25px}
+@media(max-width:650px){
+ .grid{grid-template-columns:1fr 1fr}
+ .formgrid{grid-template-columns:1fr}
+ header{padding:24px 18px 20px}
+ .brand-name{font-size:21px;letter-spacing:4px}
+ .logo{width:48px;height:48px}
+ main{padding:14px 12px 96px}
+ .metric-card{min-height:140px;padding:15px}
+ .metric{font-size:32px}
+ .label{font-size:15px}
+ .recent{padding:16px}
+ .bottom-nav{position:fixed;display:grid;grid-template-columns:repeat(4,1fr);left:18px;right:18px;bottom:14px;background:rgba(255,255,255,.96);border:1px solid #e5eae7;border-radius:32px;padding:8px;box-shadow:0 8px 30px rgba(8,44,61,.12);z-index:20}
+ .bottom-nav button{border:0;background:transparent;color:var(--teal);padding:8px 4px;border-radius:24px;font-size:12px}
+ .bottom-nav button.active{background:var(--navy);color:white}
+}
+</style></head>
+<body>
+<header>
+ <div class="brand">
+  <svg class="logo" viewBox="0 0 120 100" aria-label="UNZIV logo">
+   <path fill="#fff" d="M8 8h28v47c0 14 7 21 19 21s19-7 19-21V8h28v47c0 31-18 45-47 45S8 86 8 55V8z"/>
+   <path fill="#e6dfc2" d="M62 8h27c14 0 23 9 23 23v69H84V40c0-6-3-9-9-9H62V8z"/>
+  </svg>
+  <div><div class="brand-name">UNZIV STUDIO</div><div class="sub">案件、客戶、報價與收款管理</div></div>
+ </div>
+ <nav><button class="active" onclick="tab('home',this)">總覽</button><button onclick="tab('cases',this)">案件</button><button onclick="tab('companies',this)">公司</button></nav>
+</header>
+<main><section id="home"></section><section id="cases" class="hidden"></section><section id="companies" class="hidden"></section></main>
+<div class="bottom-nav">
+ <button class="active" onclick="tab('home',this)">⌂<br>總覽</button>
+ <button onclick="tab('cases',this)">▤<br>案件</button>
+ <button onclick="tab('companies',this)">▥<br>公司</button>
+ <button onclick="alert('設定功能之後可以再加入')">⚙<br>設定</button>
+</div>
+
+<dialog id="caseDlg"><div class="modal"><h2>案件</h2><form id="caseForm"><div class="formgrid">
+<div class="full"><label>設計公司</label><input id="company" placeholder="請輸入設計公司名稱" autocomplete="organization"></div>
+<div><label>案件名稱</label><input id="name" placeholder="請輸入案件名稱" required></div>
+<div><label>拍攝日期</label><input id="date" type="date"></div>
+<div><label>案件種類</label><select id="type"><option>住宅</option><option>商空</option><option>辦公室</option><option>樣品屋</option><option>其他</option></select></div>
+<div><label>坪數</label><input id="size" type="number" placeholder="例如：15"></div>
+<div><label>設計師</label><input id="designer" placeholder="請輸入設計師姓名"></div>
+<div class="full"><label>案場地址</label><input id="address" placeholder="請輸入案場地址"></div>
+<div><label>狀態</label><select id="status"><option>洽談中</option><option>已報價</option><option>已確認</option><option>已拍攝</option><option>待交件</option><option>待收款</option><option>已結案</option></select></div>
+<div><label>付款</label><select id="paid"><option>未收款</option><option>已收款</option></select></div>
+<div><label>付款日期</label><input id="paidDate" type="date"></div>
+<div><label>需要發票</label><select id="invoice"><option>否</option><option>是</option></select></div>
+<div><label>車馬費</label><input id="travel" type="number" value="0"></div>
+<div><label>助理班費</label><input id="assistant" type="number" value="0"></div>
+<div><label>攝影服務費</label><input id="service" type="number" value="0"></div>
+<div><label>案場資料/備註</label><input id="notes" placeholder="備註"></div>
+</div><div class="modal-actions"><button type="button" class="secondary" onclick="caseDlg.close()">取消</button> <button class="primary">儲存</button></div></form></div></dialog>
+
+<dialog id="companyDlg"><div class="modal"><h2>設計公司</h2><form id="companyForm"><div class="formgrid">
+<div><label>公司名稱</label><input id="coName" required></div><div><label>聯絡人</label><input id="coContact"></div>
+<div><label>電話</label><input id="coPhone"></div><div><label>LINE / IG</label><input id="coSocial"></div>
+<div><label>Email</label><input id="coEmail"></div><div><label>合作狀態</label><select id="coStatus"><option>合作中</option><option>潛在客戶</option><option>暫停合作</option></select></div>
+</div><div class="modal-actions"><button type="button" class="secondary" onclick="companyDlg.close()">取消</button> <button class="primary">儲存</button></div></form></div></dialog>
+<script>
+const K='xiaojieCRM',D=()=>JSON.parse(localStorage.getItem(K)||'{"companies":[],"cases":[]}');let db=D(),edit=null,editCo=null;
+const $=id=>document.getElementById(id), money=n=>new Intl.NumberFormat('zh-TW',{style:'currency',currency:'TWD',maximumFractionDigits:0}).format(n||0);
+function save(){localStorage.setItem(K,JSON.stringify(db));render()}
+function esc(s){return String(s||'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]))}
+function cname(id){let c=db.companies.find(x=>x.id==id);return c?c.name:'未指定'}
+function caseCompany(x){return x.companyName||cname(x.companyId)}
+function tab(id,b){document.querySelectorAll('main>section').forEach(x=>x.classList.add('hidden'));$(id).classList.remove('hidden');document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active')}
+function render(){let total=db.cases.reduce((a,x)=>a+x.total,0),paid=db.cases.filter(x=>x.paid==='已收款').reduce((a,x)=>a+x.total,0);
+$('home').innerHTML='<div class="grid">'+
+'<div class="card metric-card"><div class="metric-top"><div class="metric-icon">▤</div><div class="label">案件</div></div><div class="metric">'+db.cases.length+'</div><div class="arrow">›</div></div>'+
+'<div class="card metric-card"><div class="metric-top"><div class="metric-icon">▥</div><div class="label">公司</div></div><div class="metric">'+db.companies.length+'</div><div class="arrow">›</div></div>'+
+'<div class="card metric-card"><div class="metric-top"><div class="metric-icon">$</div><div class="label">已收款</div></div><div class="metric">'+money(paid)+'</div><div class="arrow">›</div></div>'+
+'<div class="card metric-card"><div class="metric-top"><div class="metric-icon">◷</div><div class="label">待收款</div></div><div class="metric">'+money(total-paid)+'</div><div class="arrow">›</div></div></div>'+
+'<div class="card recent"><div class="recent-head"><div class="recent-title"><div><h2>最近案件</h2><div class="recent-sub">查看最新的案件進度與狀態</div></div></div><button class="primary" onclick="openCase()">＋ 新增</button></div>'+
+(db.cases.length?db.cases.slice(0,5).map(ch).join(''):'<div class="empty-box"><div><div class="empty-icon">▤ ＋</div><b>目前沒有案件</b><div class="recent-sub">點擊右上方「＋ 新增」來建立第一個案件</div></div></div>')+
+'</div>';
+$('cases').innerHTML='<div class="row"><h2>案件管理</h2><button class="primary" onclick="openCase()">＋新增案件</button></div><input id="search" placeholder="搜尋案件/公司/設計師/地址" oninput="filter()"><div id="list">'+db.cases.map(ch).join('')+'</div>';
+$('companies').innerHTML='<div class="row"><h2>設計公司</h2><button class="primary" onclick="openCompany()">＋新增公司</button></div>'+db.companies.map(c=>'<div class="card"><div class="row"><div><b>'+esc(c.name)+'</b><div class="meta">'+esc(c.contact)+' '+esc(c.phone)+'</div></div><span class="pill">'+esc(c.status)+'</span></div><div class="actions"><button class="secondary" onclick="openCompany(\''+c.id+'\')">編輯</button><button class="danger" onclick="delCompany(\''+c.id+'\')">刪除</button></div></div>').join('')||'<div class="empty">尚無公司</div>'}
+function ch(x){return '<div class="card"><div class="row"><div><b>'+esc(x.name)+'</b><div class="meta">'+esc(caseCompany(x))+' · '+esc(x.date)+' · '+esc(x.type)+'<br>'+esc(x.address)+'</div></div><b>'+money(x.total)+'</b></div><div class="meta"><span class="pill">'+esc(x.status)+'</span> <span class="pill">'+esc(x.paid)+'</span></div><div class="actions"><button class="secondary" onclick="openCase(\''+x.id+'\')">編輯</button><button class="danger" onclick="delCase(\''+x.id+'\')">刪除</button></div></div>'}
+function filter(){let q=($('search').value||'').toLowerCase();$('list').innerHTML=db.cases.filter(x=>(x.name+' '+caseCompany(x)+' '+x.designer+' '+x.address).toLowerCase().includes(q)).map(ch).join('')||'<div class="empty">找不到</div>'}
+function openCase(id){edit=id||null;let x=id?db.cases.find(a=>a.id===id):{};$('company').value=x.companyName||cname(x.companyId)||'';['name','date','size','designer','address','paidDate','travel','assistant','service','notes'].forEach(k=>$(k).value=x[k]??(k==='travel'||k==='assistant'||k==='service'?0:''));$('type').value=x.type||'住宅';$('status').value=x.status||'洽談中';$('paid').value=x.paid||'未收款';$('invoice').value=x.invoice||'否';caseDlg.showModal()}
+$('caseForm').onsubmit=e=>{e.preventDefault();let x={id:edit||crypto.randomUUID(),companyName:$('company').value.trim(),companyId:'',name:$('name').value,date:$('date').value,type:$('type').value,size:$('size').value,designer:$('designer').value,address:$('address').value,status:$('status').value,paid:$('paid').value,paidDate:$('paidDate').value,invoice:$('invoice').value,travel:+$('travel').value||0,assistant:+$('assistant').value||0,service:+$('service').value||0,notes:$('notes').value};x.total=x.travel+x.assistant+x.service;let i=db.cases.findIndex(a=>a.id===x.id);i<0?db.cases.unshift(x):db.cases[i]=x;caseDlg.close();save()}
+function delCase(id){if(confirm('確定刪除？')){db.cases=db.cases.filter(x=>x.id!==id);save()}}
+function openCompany(id){editCo=id||null;let x=id?db.companies.find(a=>a.id===id):{};$('coName').value=x.name||'';$('coContact').value=x.contact||'';$('coPhone').value=x.phone||'';$('coSocial').value=x.social||'';$('coEmail').value=x.email||'';$('coStatus').value=x.status||'合作中';companyDlg.showModal()}
+$('companyForm').onsubmit=e=>{e.preventDefault();let x={id:editCo||crypto.randomUUID(),name:$('coName').value,contact:$('coContact').value,phone:$('coPhone').value,social:$('coSocial').value,email:$('coEmail').value,status:$('coStatus').value};let i=db.companies.findIndex(a=>a.id===x.id);i<0?db.companies.push(x):db.companies[i]=x;companyDlg.close();save()}
+function delCompany(id){if(db.cases.some(x=>x.companyId===id)){alert('這家公司已有案件，不能刪除');return}if(confirm('確定刪除？')){db.companies=db.companies.filter(x=>x.id!==id);save()}}
+render();
+</script></body></html>
